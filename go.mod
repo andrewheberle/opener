@@ -1,3 +1,3 @@
-module githib.com/andrewheberle/opener
+module github.com/andrewheberle/opener
 
 go 1.25
