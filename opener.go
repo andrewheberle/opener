@@ -5,8 +5,7 @@ import (
 	"runtime"
 )
 
-// https://stackoverflow.com/questions/39320371/how-start-web-server-to-open-page-in-browser-in-golang
-// open opens the specified URL in the default browser of the user.
+// OpenUrl opens the specified URL in the default browser of the user.
 func OpenUrl(url string) error {
 	var cmd string
 	var args []string
@@ -17,9 +16,30 @@ func OpenUrl(url string) error {
 		args = []string{"/c", "start"}
 	case "darwin":
 		cmd = "open"
-	default: // "linux", "freebsd", "openbsd", "netbsd"
+	case "linux":
+		if isWSL() {
+			cmd = "cmd"
+			args = []string{"/c", "start"}
+		} else {
+			cmd = "xdg-open"
+		}
+	default: // "freebsd", "openbsd", "netbsd"
 		cmd = "xdg-open"
 	}
 	args = append(args, url)
 	return exec.Command(cmd, args...).Start()
 }
+
+// isWSL detects if the current environment is Windows Subsystem for Linux.
+func isWSL() bool {
+	if runtime.GOOS != "linux" {
+		return false
+	}
+	data, err := os.ReadFile("/proc/version")
+	if err != nil {
+		return false
+	}
+	return strings.Contains(strings.ToLower(string(data)), "microsoft") ||
+		strings.Contains(strings.ToLower(string(data)), "wsl")
+}
+
