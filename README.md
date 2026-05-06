@@ -1,5 +1,8 @@
 # opener
 
+[![Go Reference](https://pkg.go.dev/badge/github.com/andrewheberle/opener.svg)](https://pkg.go.dev/github.com/andrewheberle/opener)
+[![Go Report Card](https://goreportcard.com/badge/github.com/andrewheberle/opener)](https://goreportcard.com/report/github.com/andrewheberle/opener)
+
 A Go package that opens URLs in the user’s default browser, with support for Windows, macOS, Linux, and WSL.
 
 ## Installation
