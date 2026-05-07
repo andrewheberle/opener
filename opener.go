@@ -1,8 +1,10 @@
 package opener
 
 import (
+	"os"
 	"os/exec"
 	"runtime"
+	"strings"
 )
 
 // OpenUrl opens the specified URL in the default browser of the user.
@@ -42,4 +44,3 @@ func isWSL() bool {
 	return strings.Contains(strings.ToLower(string(data)), "microsoft") ||
 		strings.Contains(strings.ToLower(string(data)), "wsl")
 }
-
